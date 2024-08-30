@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Cheap Flights - Australia & Worldwide</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    .container {
+      margin: 50px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input, select, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Find Cheap Flights</h1>
+  <form id="flight-search-form">
+    <input type="text" id="departure" placeholder="Departure City (e.g., Sydney)" required>
+    <input type="text" id="destination" placeholder="Destination City (e.g., Melbourne)" required>
+    <input type="date" id="departure-date" required>
+    <input type="date" id="return-date">
+    <input type="number" id="passengers" placeholder="Number of Passengers" required min="1">
+    <button type="submit">Search Flights</button>
+  </form>
+
+  <div id="results"></div>
+</div>
+
+<script>
+// Handle form submission
+document.getElementById('flight-search-form').addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  const departure = document.getElementById('departure').value;
+  const destination = document.getElementById('destination').value;
+  const departureDate = document.getElementById('departure-date').value;
+  const returnDate = document.getElementById('return-date').value;
+  const passengers = document.getElementById('passengers').value;
+
+  // Call the backend function to search for flights
+  const result = await fetchFlights(departure, destination, departureDate, returnDate, passengers);
+
+  // Display the results
+  document.getElementById('results').innerHTML = result;
+});
+</script>
+
+</body>
+</html>
