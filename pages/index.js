@@ -12,13 +12,13 @@ export default function Home() {
     setError(null);
 
     const formData = new FormData(event.target);
-    
+
     const searchData = {
       departure: formData.get('departure'),
       destination: formData.get('destination'),
       departureDate: formData.get('departureDate'),
       returnDate: formData.get('returnDate'),
-      passengers: formData.get('passengers')
+      passengers: formData.get('passengers'),
     };
 
     try {
@@ -50,19 +50,19 @@ export default function Home() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="departure">Departure City:</label>
         <input type="text" name="departure" required />
-        
+
         <label htmlFor="destination">Destination City:</label>
         <input type="text" name="destination" required />
-        
+
         <label htmlFor="departureDate">Departure Date:</label>
         <input type="date" name="departureDate" required />
-        
+
         <label htmlFor="returnDate">Return Date (Optional):</label>
         <input type="date" name="returnDate" />
-        
+
         <label htmlFor="passengers">Passengers:</label>
         <input type="number" name="passengers" min="1" required />
-        
+
         <button type="submit">Search Flights</button>
       </form>
 
