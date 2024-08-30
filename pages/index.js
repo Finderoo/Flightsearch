@@ -14,15 +14,13 @@ export default function Home() {
     const formData = new FormData(event.target);
 
     const searchData = {
-      departure: formData.get('departure'),
+      origin: formData.get('origin'),
       destination: formData.get('destination'),
       departureDate: formData.get('departureDate'),
-      returnDate: formData.get('returnDate'),
-      passengers: formData.get('passengers'),
     };
 
     try {
-      const res = await fetch('/api/searchFlights', {
+      const res = await fetch('/api/amadeus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,20 +46,14 @@ export default function Home() {
     <div>
       <h1>Find Cheap Flights</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="departure">Departure City:</label>
-        <input type="text" name="departure" required />
+        <label htmlFor="origin">Origin:</label>
+        <input type="text" name="origin" required />
 
-        <label htmlFor="destination">Destination City:</label>
+        <label htmlFor="destination">Destination:</label>
         <input type="text" name="destination" required />
 
         <label htmlFor="departureDate">Departure Date:</label>
         <input type="date" name="departureDate" required />
-
-        <label htmlFor="returnDate">Return Date (Optional):</label>
-        <input type="date" name="returnDate" />
-
-        <label htmlFor="passengers">Passengers:</label>
-        <input type="number" name="passengers" min="1" required />
 
         <button type="submit">Search Flights</button>
       </form>
