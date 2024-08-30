@@ -1,25 +1,27 @@
-// api/searchFlights.js
-const fetch = require('node-fetch');
-
+// pages/api/searchFlights.js
 export default async function handler(req, res) {
   const { departure, destination, departureDate, returnDate, passengers } = req.body;
 
-  const url = `https://sky-scrapper.p.rapidapi.com/api/v2/flights/searchFlights?originSkyId=${departure}&destinationSkyId=${destination}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${passengers}&currency=AUD&locale=en-AU&market=en-AU&countryCode=AU`;
+  const apiUrl = `https://sky-scrapper.p.rapidapi.com/api/v2/flights/searchFlights?originSkyId=${departure}&destinationSkyId=${destination}&originEntityId=27544008&destinationEntityId=27537542&cabinClass=economy&adults=${passengers}&sortBy=best&currency=AUD&market=en-AU&countryCode=AU`;
 
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': process.env.RAPIDAPI_KEY,
+      'x-rapidapi-key': 'f09cf367d3msh4ccd0c03ce4c3dap14ac65jsn9ff16862b64d',
       'x-rapidapi-host': 'sky-scrapper.p.rapidapi.com'
     }
   };
 
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(apiUrl, options);
     const data = await response.json();
-    res.status(200).json(data);
+
+    if (response.ok) {
+      res.status(200).json(data);
+    } else {
+      res.status(400).json({ error: 'Error fetching flight data' });
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Error fetching flight data');
+    res.status(500).json({ error: 'Server error' });
   }
 }
